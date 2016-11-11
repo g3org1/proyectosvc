@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SCV AYUDA-MED</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body id="top">
+
+    <!-- Top -->
+    <div class="bgded overlay principal" style="background-image:url('images/backgrounds/04.png'); height: 100vh;">
+        <div class="wrapper row0">
+            <!-- barra superior -->
+            <div id="topbar" class="hoc clear">
+                <div class="fl_left">
+                    <ul>
+                        <li><i class="fa fa-phone"></i> +XX (XXX) XXXX XXXX</li>
+                        <!-- telefono -->
+                        <li><i class="fa fa-envelope-o"></i> clinica@correo.com</li>
+                        <!-- correo -->
+                    </ul>
+                </div>
+                <div class="fl_right">
+                    <ul>
+                        <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
+                        <!-- inicio -->
+                        <li><a href="ingresar-usu.php">Ingresar</a></li>
+                        <!-- formulario de ingerso -->
+                        <li><a href="registrar-usu.php">Registrarse</a></li>
+                        <!-- formulario de registro -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- fin barra superior-->
+
+        <!-- barra central-->
+        <div class="wrapper row1">
+            <header id="header" class="hoc clear">
+                <!-- logotipo -->
+                <div id="logo" class="fl_left">
+                    <h1><a href="index.html"><img src="images/logotipo.png" alt="logotipo"/></a></h1>
+                </div>
+                <!-- menu -->
+<nav id="mainav" class="fl_right">
+    <ul class="clear">
+        <li class="active"><a href="index.html">Inicio</a></li>
+        <li><a class="drop" href="#">Administración</a>
+            <ul>
+                <li><a class="drop" href="#">Gestión Pacientes</a>
+                    <ul>
+                        <li><a href="registrar-pac.php">Registrar Paciente</a></li>
+                        <li><a href="modificar-pac.php">Modificar Ficha Clínica Paciente</a></li>
+                </li>
+                <li><a href="notificar-pac.php">Notificar a Correo</a></li>
+
+                </ul>
+        </li>
+        <li><a class="drop" href="#">Gestion Centros Médicos</a>
+            <ul>
+                <li><a href="registrar-cen-med.php">Agregar Centro médico</a></li>
+                <li><a href="modificar-cen-med.php">Modificar Centro Médico</a></li>
+
+            </ul>
+        </li>
+        </ul>
+        </li>
+        <li><a class="drop" href="#">Usuarios</a>
+            <ul>
+                <li><a href="calendario.html">Calendario</a></li>
+                <li><a class="drop" href="#">Vacunas</a>
+                    <ul>
+                        <li><a href="index.html">Registro</a></li>
+                        <li><a href="#">Informacion</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Centros Medicos Asociados</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+</header>
+</div>
+        <!-- Fin Barra Central -->
+
+        <div id="pageintro" class="hoc clear">
+            <div id="principal">
+                <div class="timeline" id="timeline">
+
+
+
+                  <?php require_once("config.inc.php"); ?><!DOCTYPE html>
+                  <!--[if lt IE 7 ]><html class="ie ie6" lang="es"> <![endif]-->
+                  <!--[if IE 7 ]><html class="ie ie7" lang="es"> <![endif]-->
+                  <!--[if IE 8 ]><html class="ie ie8" lang="es"> <![endif]-->
+                  <!--[if (gte IE 9)|!(IE)]><!--><html lang="es"> <!--<![endif]-->
+                  <head>
+                  	<meta charset="UTF-8">
+
+                  	<!--[if lt IE 9]>
+                  		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+                  	<![endif]-->
+
+                  	<title>Calendario en PHP, AJAX y jQuery con eventos actualizado a 2014</title>
+
+                  	<meta http-equiv="PRAGMA" content="NO-CACHE">
+                  	<meta http-equiv="EXPIRES" content="-1">
+
+                  	<link type="text/css" rel="stylesheet" media="all" href="estilos.css">
+
+                  	</head>
+                  <body>
+                  	<div class="calendario_ajax">
+                  		<div class="cal"></div><div id="mask"></div>
+                  	</div>
+
+                  	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+                  	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+                  	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/localization/messages_es.js "></script>
+
+                  	<script>
+                  	function generar_calendario(mes,anio)
+                  	{
+                  		var agenda=$(".cal");
+                  		agenda.html("<img src='images/loading.gif'>");
+                  		$.ajax({
+                  			type: "GET",
+                  			url: "ajax_calendario.php",
+                  			cache: false,
+                  			data: { mes:mes,anio:anio,accion:"generar_calendario" }
+                  		}).done(function( respuesta )
+                  		{
+                  			agenda.html(respuesta);
+                  		});
+                  	}
+
+                  	function formatDate (input) {
+                  		var datePart = input.match(/\d+/g),
+                  		year = datePart[0].substring(2),
+                  		month = datePart[1], day = datePart[2];
+                  		return day+'-'+month+'-'+year;
+                  	}
+
+                  		$(document).ready(function()
+                  		{
+                  			/* GENERAMOS CALENDARIO CON FECHA DE HOY */
+                  			generar_calendario("<?php if (isset($_GET["mes"])) echo $_GET["mes"]; ?>","<?php if (isset($_GET["anio"])) echo $_GET["anio"]; ?>");
+
+
+                  			/* AGREGAR UN EVENTO */
+                  			$(document).on("click",'a.add',function(e)
+                  			{
+                  				e.preventDefault();
+                  				var id = $(this).data('evento');
+                  				var fecha = $(this).attr('rel');
+
+                  				$('#mask').fadeIn(1000).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Agregar un evento el "+formatDate(fecha)+"</h2><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta_form'></div><form class='formeventos'><input type='text' name='evento_titulo' id='evento_titulo' class='required'><input type='button' name='Enviar' value='Guardar' class='enviar'><input type='hidden' name='evento_fecha' id='evento_fecha' value='"+fecha+"'></form></div>");
+                  			});
+
+                  			/* LISTAR EVENTOS DEL DIA */
+                  			$(document).on("click",'a.modal',function(e)
+                  			{
+                  				e.preventDefault();
+                  				var fecha = $(this).attr('rel');
+
+                  				$('#mask').fadeIn(1000).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
+                  				$.ajax({
+                  					type: "GET",
+                  					url: "ajax_calendario.php",
+                  					cache: false,
+                  					data: { fecha:fecha,accion:"listar_evento" }
+                  				}).done(function( respuesta )
+                  				{
+                  					$("#respuesta_form").html(respuesta);
+                  				});
+
+                  			});
+
+                  			$(document).on("click",'.close',function (e)
+                  			{
+                  				e.preventDefault();
+                  				$('#mask').fadeOut();
+                  				setTimeout(function()
+                  				{
+                  					var fecha=$(".window").attr("rel");
+                  					var fechacal=fecha.split("-");
+                  					generar_calendario(fechacal[1],fechacal[0]);
+                  				}, 500);
+                  			});
+
+                  			//guardar evento
+                  			$(document).on("click",'.enviar',function (e)
+                  			{
+                  				e.preventDefault();
+                  				if ($("#evento_titulo").valid()==true)
+                  				{
+                  					$("#respuesta_form").html("<img src='images/loading.gif'>");
+                  					var evento=$("#evento_titulo").val();
+                  					var fecha=$("#evento_fecha").val();
+                  					$.ajax({
+                  						type: "GET",
+                  						url: "ajax_calendario.php",
+                  						cache: false,
+                  						data: { evento:evento,fecha:fecha,accion:"guardar_evento" }
+                  					}).done(function( respuesta2 )
+                  					{
+                  						$("#respuesta_form").html(respuesta2);
+                  						$(".formeventos,.close").hide();
+                  						setTimeout(function()
+                  						{
+                  							$('#mask').fadeOut('fast');
+                  							var fechacal=fecha.split("-");
+                  							generar_calendario(fechacal[1],fechacal[0]);
+                  						}, 3000);
+                  					});
+                  				}
+                  			});
+
+                  			//eliminar evento
+                  			$(document).on("click",'.eliminar_evento',function (e)
+                  			{
+                  				e.preventDefault();
+                  				var current_p=$(this);
+                  				$("#respuesta").html("<img src='images/loading.gif'>");
+                  				var id=$(this).attr("rel");
+                  				$.ajax({
+                  					type: "GET",
+                  					url: "ajax_calendario.php",
+                  					cache: false,
+                  					data: { id:id,accion:"borrar_evento" }
+                  				}).done(function( respuesta2 )
+                  				{
+                  					$("#respuesta").html(respuesta2);
+                  					current_p.parent("p").fadeOut();
+                  				});
+                  			});
+
+                  			$(document).on("click",".anterior,.siguiente",function(e)
+                  			{
+                  				e.preventDefault();
+                  				var datos=$(this).attr("rel");
+                  				var nueva_fecha=datos.split("-");
+                  				generar_calendario(nueva_fecha[1],nueva_fecha[0]);
+                  			});
+
+                  		});
+                  		</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  	<!-- ESTO NO TE HACE FALTA! -->
+                  	<script type="text/javascript">
+                  	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+                  	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+                  	</script>
+                  	<script type="text/javascript">
+                  	try {
+                  	var pageTracker = _gat._getTracker("UA-266167-20");
+                  	pageTracker._setDomainName(".martiniglesias.eu");
+                  	pageTracker._trackPageview();
+                  	} catch(err) {}</script>
+                  </body>
+                  </html>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- fin top -->
+    <div class="wrapper coloured">
+        <article class="hoc cta clear">
+          <h6 class="three_quarter first">Califique su centro medico.</h6>
+          <footer class="two_quarter"><a class="btn" href="#">Acceder &raquo;</a></footer>
+        </article>
+    </div>
+    <div class="wrapper row2">
+        <article class="hoc container clear">
+            <div class="one_quarter first">
+                <h3 class="heading font-x2">Clinicas Asociadas</h3>
+            </div>
+            <div class="three_quarter">
+                <ul class="nospace group stats">
+                    <li><i class="fa fa-3x fa-blind"></i>
+                        <p><a href="#">Clinica 1</a></p>
+                    </li>
+                    <li><i class="fa fa-3x fa-plus-circle"></i>
+                        <p><a href="#">Clinica 2</a></p>
+                    </li>
+                    <li><i class="fa fa-3x fa-plus-square"></i>
+                        <p><a href="#">Clinica 3</a></p>
+                    </li>
+                    <li><i class="fa fa-3x fa-wheelchair"></i>
+                        <p><a href="#">Clinica 4</a></p>
+                    </li>
+                </ul>
+            </div>
+        </article>
+    </div>
+
+    <div class="wrapper row4 bgded overlay" style="background-image:url('images/backgrounds/03.png');">
+        <footer id="footer" class="hoc clear">
+            <center>
+                <ul class="faico clear">
+                    <li><a class="faicon-facebook" href="https://www.facebook.com/ucsc.concepcion/" title="UCSC Facebook"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="faicon-twitter" href="https://twitter.com/ucscconcepcion" title="UCSC Twitter"><i class="fa fa-twitter"></i></a></li>
+                    <li><a class="faicon-university" href="http://www.ucsc.cl/" title="Universidad Catolica de la Santisima Concepcion"><i class="fa fa-university"></i></a></li>
+                    <li><a class="faicon-balance-scale" href="http://www.minsal.cl/" title="Ministerio de Salud"><i class="fa fa-balance-scale"></i></a></li>
+                </ul>
+            </center>
+    </div>
+    <!-- ################################################################################################ -->
+    </footer>
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <div class="wrapper row5">
+        <div id="copyright" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="#">Domain Name</a></p>
+            <!-- ################################################################################################ -->
+        </div>
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+    <!-- JAVASCRIPTS -->
+    <script src="layout/scripts/jquery.min.js"></script>
+    <script src="layout/scripts/jquery.backtotop.js"></script>
+    <script src="layout/scripts/jquery.mobilemenu.js"></script>
+    <script src="layout/scripts/jquery.flexslider-min.js"></script>
+
+
+
+    </div>
+</body>
+
+</html>
